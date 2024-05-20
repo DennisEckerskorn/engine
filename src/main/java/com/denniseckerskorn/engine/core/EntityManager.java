@@ -13,14 +13,14 @@ public abstract class EntityManager implements Updateable {
     private int numEntities;
     private final List<PlayableEntity> playableEntities;
     private final AssetManager assetManager;
-    private final ObjectPool<Entity> entityObjectPool;
+    //private final ObjectPool<Entity> entityObjectPool;
 
     public EntityManager(int maxEntities) {
         entities = new Entity[maxEntities];
         numEntities = 0;
         playableEntities = new ArrayList<>();
         assetManager = createAssetManager();
-        entityObjectPool = new ObjectPool<>(Entity.class, maxEntities);
+        //entityObjectPool = new ObjectPool<>(Entity.class, maxEntities);
     }
 
     public boolean addEntity(Entity entity) {
@@ -42,7 +42,7 @@ public abstract class EntityManager implements Updateable {
                 entities[i] = entities[numEntities - 1];
                 entities[numEntities - 1] = other;
                 numEntities--;
-                entityObjectPool.returnObject(entity);
+               // entityObjectPool.returnObject(entity);
                 if (entity instanceof PlayableEntity) {
                     playableEntities.remove(entity);
                 }
