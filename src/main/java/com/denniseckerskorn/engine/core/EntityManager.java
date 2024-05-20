@@ -2,7 +2,9 @@ package com.denniseckerskorn.engine.core;
 
 import com.denniseckerskorn.engine.entities.Entity;
 import com.denniseckerskorn.engine.entities.PlayableEntity;
+import com.denniseckerskorn.engine.pool.ObjectPool;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +13,14 @@ public abstract class EntityManager implements Updateable {
     private int numEntities;
     private final List<PlayableEntity> playableEntities;
     private final AssetManager assetManager;
+    private final ObjectPool<Entity> entityObjectPool;
 
     public EntityManager(int maxEntities) {
         entities = new Entity[maxEntities];
         numEntities = 0;
         playableEntities = new ArrayList<>();
         assetManager = createAssetManager();
+        entityObjectPool = new ObjectPool<>(Entity.class, maxEntities);
     }
 
     public boolean addEntity(Entity entity) {
@@ -38,9 +42,17 @@ public abstract class EntityManager implements Updateable {
                 entities[i] = entities[numEntities - 1];
                 entities[numEntities - 1] = other;
                 numEntities--;
+                entityObjectPool.returnObject(entity);
+                if (entity instanceof PlayableEntity) {
+                    playableEntities.remove(entity);
+                }
+                break;
+
             }
         }
     }
+
+  // TODO: Add borrow object method
 
     public abstract AssetManager createAssetManager();
 

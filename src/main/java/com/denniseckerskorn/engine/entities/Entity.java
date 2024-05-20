@@ -4,15 +4,16 @@ import com.denniseckerskorn.engine.core.Collider;
 import com.denniseckerskorn.engine.core.Updateable;
 import com.denniseckerskorn.engine.math.MathUtil;
 import com.denniseckerskorn.engine.math.Vector2;
+import com.denniseckerskorn.engine.pool.Poolable;
 
 import java.awt.image.BufferedImage;
 
-public abstract class Entity implements Updateable {
+public abstract class Entity implements Updateable, Poolable {
     private static int autoincrement = 0;
     private final int id;
     private final Vector2 position;
-    private final float width;
-    private final float height;
+    private float width;
+    private float height;
     private float hp;
     private float damage;
     private Collider collider;
@@ -46,6 +47,17 @@ public abstract class Entity implements Updateable {
 
     public Entity(float x, float y, float width, float height, float hp, float damage) {
         this(x, y, width, height, hp, damage, null);
+    }
+
+    @Override
+    public void reset() {
+        this.position.setPosition(0, 0);
+        this.width = 0;
+        this.height = 0;
+        this.hp = 0;
+        this.damage = 0;
+        this.collider = null;
+        this.sprite = null;
     }
 
     public Collider getCollider() {
