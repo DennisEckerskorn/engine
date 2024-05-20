@@ -1,18 +1,18 @@
 package com.denniseckerskorn.engine.core;
 
+import com.denniseckerskorn.engine.audio.Sound;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.denniseckerskorn.engine.audio.Sound;
 
 public abstract class AssetManager {
     private final Map<String, BufferedImage> sprites;
     private final Map<String, Sound> sounds;
 
-    // private final Map<String, Animation> animation;
 
     public AssetManager() {
         sprites = new HashMap<>();
@@ -28,17 +28,12 @@ public abstract class AssetManager {
             throw new RuntimeException(e);
         }
     }
-/*
+
     public void loadSound(String name, String path) {
-        try {
-            String fullPath = getClass().getResource(path).getPath();
-           Sound sound = new Sound(path);
-           sounds.put(name, sound);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String fullPath = getClass().getResource(path).getPath();
+        Sound sound = new Sound(fullPath);
+        sounds.put(name, sound);
     }
- */
 
     public BufferedImage getSprite(String name) {
         return sprites.get(name);

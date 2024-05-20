@@ -4,10 +4,9 @@ import com.denniseckerskorn.engine.core.AssetManager;
 import com.denniseckerskorn.engine.core.EntityManager;
 
 public class SnakeEntityManager extends EntityManager {
-
     public SnakeEntityManager(int maxEntities) {
         super(maxEntities);
-        getAssetManager().getSound("").play();
+        // getAssetManager().getSound("shoot").play();
     }
 
     @Override
