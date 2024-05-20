@@ -25,11 +25,6 @@ public class Vector2 {
         this.y = y;
     }
 
-    public void setPosition(float x, float y) {
-        setX(x);
-        setY(y);
-    }
-
     @Override
     public String toString() {
         return "Vector2{" +
