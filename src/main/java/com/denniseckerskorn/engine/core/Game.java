@@ -90,7 +90,6 @@ public abstract class Game implements Runnable, Updateable {
         update(deltaTime);
         postUpdate(deltaTime);
         lastUpdate(deltaTime);
-        render();
     }
 
     private void render() {
