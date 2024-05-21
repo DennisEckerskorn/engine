@@ -6,15 +6,17 @@ import com.denniseckerskorn.engine.graphics.swing.SwingRenderer;
 public abstract class Game implements Runnable, Updateable {
     private final int width;
     private final int height;
-    private final float fpsLimit;
+    private float fpsLimit;
+    private float updateLimit;
     private Thread thread;
     private boolean finished;
     private RenderAPI renderAPI;
 
-    public Game(int width, int height, float fpsLimit, int maxEntities) {
+    public Game(int width, int height, float fpsLimit, float updateLimit, int maxEntities) {
         this.width = width;
         this.height = height;
         this.fpsLimit = fpsLimit;
+        this.updateLimit = updateLimit;
         this.finished = false;
         Blackboard.entityManager = createEntityManager(maxEntities);
     }
@@ -23,50 +25,72 @@ public abstract class Game implements Runnable, Updateable {
         this.renderAPI = renderAPI;
     }
 
+    public void setFpsLimit(float fpsLimit) {
+        this.fpsLimit = fpsLimit;
+    }
+
+    public float getFpsLimit() {
+        return fpsLimit;
+    }
+
+    public void setUpdateLimit(float updateLimit) {
+        this.updateLimit = updateLimit;
+    }
+
+    public float getUpdateLimit() {
+        return updateLimit;
+    }
+
     public abstract EntityManager createEntityManager(int maxEntities);
 
     public void start() {
         thread = new Thread(this);
         thread.start();
     }
+
     //TODO: separa limiteUpdateporseconds
     @Override
     public void run() {
         final long NANOS_IN_SECONDS = 1_000_000_000;
-        final double NANOS_BETWEEN_UPDATES = 1_000_000_000 / fpsLimit;
         long currentFrame;
         long lastFrame = System.nanoTime();
+        long lastUpdateFrame = lastFrame;
         double deltaTime;
 
         System.out.println("Iniciando hilo ...");
         while (!finished) {
             currentFrame = System.nanoTime();
             deltaTime = (double) (currentFrame - lastFrame) / NANOS_IN_SECONDS;
-            if (currentFrame - lastFrame > NANOS_BETWEEN_UPDATES) {
-                processInput();
 
-                //Representa el tiempo transcurrido desde el último fotograma.
-                //Actualizaciones lógicas del juego, como el movimiento de objetos,
-                // la detección de colisiones, la lógica de la IA, etc.
-                update(deltaTime);
+            if (updateLimit > 0) {
+                double nanosBetweenUpdates = NANOS_IN_SECONDS / updateLimit;
+                if (currentFrame - lastUpdateFrame >= nanosBetweenUpdates) {
+                    updateGame(deltaTime);
+                    lastUpdateFrame = currentFrame;
+                }
+            } else {
+                updateGame(deltaTime);
+            }
 
-                //Realizar cualquier acción adicional que necesita realizarse
-                // después de la actualización principal del juego.
-                // Por ejemplo, puedes realizar ajustes finales en el estado de los objetos,
-                // generar eventos basados en el estado actual, etc.
-                postUpdate(deltaTime);
-
-                //Útil para realizar acciones que deben llevarse a cabo después
-                // de que se hayan realizado todas las actualizaciones principales del juego
-                // y justo antes de renderizar el siguiente fotograma.
-                // Limpiar recursos, actualizar información de interfaz de usuario,
-                // o realizar cualquier tarea final antes de renderizar.
-                lastUpdate(deltaTime);
-
+            if (fpsLimit > 0) {
+                double nanosBetweenFrames = NANOS_IN_SECONDS / fpsLimit;
+                if (currentFrame - lastFrame > nanosBetweenFrames) {
+                    render();
+                    lastFrame = currentFrame;
+                }
+            } else {
                 render();
                 lastFrame = currentFrame;
             }
         }
+    }
+
+    private void updateGame(double deltaTime) {
+        processInput();
+        update(deltaTime);
+        postUpdate(deltaTime);
+        lastUpdate(deltaTime);
+        render();
     }
 
     private void render() {

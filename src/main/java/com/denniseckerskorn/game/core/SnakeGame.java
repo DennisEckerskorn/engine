@@ -10,8 +10,8 @@ public class SnakeGame extends Game {
     private final int cols;
     private final SnakeEntityManager entityManager;
 
-    public SnakeGame(int width, int height,int rows, int cols, float fpsLimit, int maxEntities) {
-        super(width, height, fpsLimit, maxEntities);
+    public SnakeGame(int width, int height,int rows, int cols, float fpsLimit, float updateLimit, int maxEntities) {
+        super(width, height, fpsLimit, updateLimit, maxEntities);
         this.rows = rows;
         this.cols = cols;
         entityManager = (SnakeEntityManager) Blackboard.entityManager;

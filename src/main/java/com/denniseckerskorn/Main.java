@@ -5,11 +5,12 @@ import com.denniseckerskorn.game.core.SnakeGame;
 import com.denniseckerskorn.game.graphics.SnakeSwingRenderer;
 
 import javax.swing.*;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         //Snake
-        SnakeGame snakeGame = new SnakeGame(Settings.WIDTH, Settings.HEIGHT, Settings.ROWS, Settings.COLS, Settings.TARGET_FPS, Settings.MAX_ENTITIES);
+        SnakeGame snakeGame = new SnakeGame(Settings.WIDTH, Settings.HEIGHT, Settings.ROWS, Settings.COLS, Settings.TARGET_FPS, Settings.TARGET_UPDATE, Settings.MAX_ENTITIES);
         SnakeSwingRenderer snakeSwingRenderer = new SnakeSwingRenderer(Settings.WIDTH, Settings.HEIGHT);
         snakeGame.setRenderAPI(snakeSwingRenderer);
         JFrame frame = new JFrame();
