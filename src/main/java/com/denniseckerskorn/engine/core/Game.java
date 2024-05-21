@@ -29,7 +29,7 @@ public abstract class Game implements Runnable, Updateable {
         thread = new Thread(this);
         thread.start();
     }
-
+    //TODO: separa limiteUpdateporseconds
     @Override
     public void run() {
         final long NANOS_IN_SECONDS = 1_000_000_000;

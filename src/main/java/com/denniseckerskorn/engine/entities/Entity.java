@@ -51,7 +51,7 @@ public abstract class Entity implements Updateable, Poolable {
 
     @Override
     public void reset() {
-        this.position.setPosition(0, 0);
+        //this.position.setPosition(0, 0);
         this.width = 0;
         this.height = 0;
         this.hp = 0;
