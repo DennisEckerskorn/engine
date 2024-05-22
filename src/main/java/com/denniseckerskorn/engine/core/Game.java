@@ -1,13 +1,12 @@
 package com.denniseckerskorn.engine.core;
 
 import com.denniseckerskorn.engine.graphics.RenderAPI;
-import com.denniseckerskorn.engine.graphics.swing.SwingRenderer;
 
 public abstract class Game implements Runnable, Updateable {
     private final int width;
     private final int height;
     private float fpsLimit;
-    private float updateLimit;
+    private float upsLimit;
     private Thread thread;
     private boolean finished;
     private RenderAPI renderAPI;
@@ -16,7 +15,7 @@ public abstract class Game implements Runnable, Updateable {
         this.width = width;
         this.height = height;
         this.fpsLimit = fpsLimit;
-        this.updateLimit = updateLimit;
+        this.upsLimit = updateLimit;
         this.finished = false;
         Blackboard.entityManager = createEntityManager(maxEntities);
     }
@@ -33,12 +32,12 @@ public abstract class Game implements Runnable, Updateable {
         return fpsLimit;
     }
 
-    public void setUpdateLimit(float updateLimit) {
-        this.updateLimit = updateLimit;
+    public void setUpsLimit(float upsLimit) {
+        this.upsLimit = upsLimit;
     }
 
-    public float getUpdateLimit() {
-        return updateLimit;
+    public float getUpsLimit() {
+        return upsLimit;
     }
 
     public abstract EntityManager createEntityManager(int maxEntities);
@@ -48,7 +47,7 @@ public abstract class Game implements Runnable, Updateable {
         thread.start();
     }
 
-    //TODO: separa limiteUpdateporseconds
+    //TODO: update to version of German
     @Override
     public void run() {
         final long NANOS_IN_SECONDS = 1_000_000_000;
@@ -61,9 +60,10 @@ public abstract class Game implements Runnable, Updateable {
         while (!finished) {
             currentFrame = System.nanoTime();
             deltaTime = (double) (currentFrame - lastFrame) / NANOS_IN_SECONDS;
+            processInput();
 
-            if (updateLimit > 0) {
-                double nanosBetweenUpdates = NANOS_IN_SECONDS / updateLimit;
+            if (upsLimit > 0) {
+                double nanosBetweenUpdates = NANOS_IN_SECONDS / upsLimit;
                 if (currentFrame - lastUpdateFrame >= nanosBetweenUpdates) {
                     updateGame(deltaTime);
                     lastUpdateFrame = currentFrame;
@@ -86,7 +86,6 @@ public abstract class Game implements Runnable, Updateable {
     }
 
     private void updateGame(double deltaTime) {
-        processInput();
         update(deltaTime);
         postUpdate(deltaTime);
         lastUpdate(deltaTime);
