@@ -11,10 +11,10 @@ public class Main {
     public static void main(String[] args) {
         //Snake
         SnakeGame snakeGame = new SnakeGame(Settings.WIDTH, Settings.HEIGHT, Settings.ROWS, Settings.COLS, Settings.TARGET_FPS, Settings.TARGET_UPDATE, Settings.MAX_ENTITIES);
-        SnakeSwingRenderer snakeSwingRenderer = new SnakeSwingRenderer(Settings.WIDTH, Settings.HEIGHT);
+        SnakeSwingRenderer snakeSwingRenderer = new SnakeSwingRenderer(Settings.WIDTH, Settings.HEIGHT, snakeGame);
         snakeGame.setRenderAPI(snakeSwingRenderer);
         JFrame frame = new JFrame();
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Snake");
         frame.add(snakeSwingRenderer);

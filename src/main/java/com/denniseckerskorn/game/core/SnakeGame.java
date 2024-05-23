@@ -10,7 +10,7 @@ public class SnakeGame extends Game {
     private final int cols;
     private final SnakeEntityManager entityManager;
 
-    public SnakeGame(int width, int height,int rows, int cols, float fpsLimit, float updateLimit, int maxEntities) {
+    public SnakeGame(int width, int height, int rows, int cols, float fpsLimit, float updateLimit, int maxEntities) {
         super(width, height, fpsLimit, updateLimit, maxEntities);
         this.rows = rows;
         this.cols = cols;
@@ -30,5 +30,8 @@ public class SnakeGame extends Game {
 
     }
 
-
+    @Override
+    public void gameResized() {
+        Blackboard.cellSize = getWidth() < getHeight() ? getWidth() / cols : getHeight() / rows;
+    }
 }

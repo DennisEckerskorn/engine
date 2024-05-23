@@ -2,9 +2,9 @@ package com.denniseckerskorn.engine.core;
 
 import com.denniseckerskorn.engine.graphics.RenderAPI;
 
-public abstract class Game implements Runnable, Updateable {
-    private final int width;
-    private final int height;
+public abstract class Game implements Runnable, Updateable, ResizeListener {
+    private int width;
+    private int height;
     private float fpsLimit;
     private float upsLimit;
     private Thread thread;
@@ -38,6 +38,14 @@ public abstract class Game implements Runnable, Updateable {
 
     public float getUpsLimit() {
         return upsLimit;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public abstract EntityManager createEntityManager(int maxEntities);
@@ -113,4 +121,13 @@ public abstract class Game implements Runnable, Updateable {
     private void processInput() {
         Blackboard.entityManager.processInput();
     }
+
+    @Override
+    public void onResize(int width, int height) {
+        this.width = width;
+        this.height = height;
+        gameResized();
+    }
+
+    public abstract void gameResized();
 }

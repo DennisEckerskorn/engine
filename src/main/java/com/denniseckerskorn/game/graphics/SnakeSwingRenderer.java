@@ -1,6 +1,7 @@
 package com.denniseckerskorn.game.graphics;
 
 import com.denniseckerskorn.engine.core.Blackboard;
+import com.denniseckerskorn.engine.core.ResizeListener;
 import com.denniseckerskorn.engine.entities.Entity;
 import com.denniseckerskorn.engine.graphics.swing.SwingRenderer;
 import com.denniseckerskorn.game.config.Settings;
@@ -10,8 +11,8 @@ import java.util.Set;
 
 public class SnakeSwingRenderer extends SwingRenderer {
 
-    public SnakeSwingRenderer(int width, int height) {
-        super(width, height);
+    public SnakeSwingRenderer(int width, int height, ResizeListener resizeListener) {
+        super(width, height, resizeListener);
     }
 
     @Override
@@ -31,5 +32,10 @@ public class SnakeSwingRenderer extends SwingRenderer {
 
             }
         }
+    }
+
+    @Override
+    public void onResize(int width, int height) {
+
     }
 }

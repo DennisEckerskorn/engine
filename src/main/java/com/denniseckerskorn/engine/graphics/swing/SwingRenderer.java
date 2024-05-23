@@ -1,19 +1,33 @@
 package com.denniseckerskorn.engine.graphics.swing;
 
 import com.denniseckerskorn.engine.core.Blackboard;
+import com.denniseckerskorn.engine.core.ResizeListener;
 import com.denniseckerskorn.engine.entities.Entity;
 import com.denniseckerskorn.engine.graphics.RenderAPI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 public abstract class SwingRenderer extends JPanel implements RenderAPI {
 
-    public SwingRenderer(int width, int height) {
+    public SwingRenderer(int width, int height, ResizeListener resizeListener) {
         setPreferredSize(new Dimension(width, height));
         setDoubleBuffered(true);
         setFocusable(true);
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                resizeListener.onResize(e.getComponent().getWidth(), e.getComponent().getHeight());
+            }
+        });
     }
+
+
 
     @Override
     public void render() {
@@ -31,8 +45,6 @@ public abstract class SwingRenderer extends JPanel implements RenderAPI {
         for (int i = 0; i < Blackboard.entityManager.getNumEntities(); i++) {
             drawEntity(g2, entities[i]);
         }
-
-
     }
 
     public abstract void drawEntity(Graphics2D g2, Entity e);

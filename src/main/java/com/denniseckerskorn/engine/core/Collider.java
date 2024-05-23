@@ -1,5 +1,7 @@
 package com.denniseckerskorn.engine.core;
 
+import com.denniseckerskorn.engine.entities.Entity;
+
 public class Collider {
     private float xRight;
     private float xLeft;
@@ -53,6 +55,10 @@ public class Collider {
 
     public void setMask(int mask) {
         this.mask = mask;
+    }
+
+    private void translateToWorldCoords(Entity e) {
+
     }
 
     @Override

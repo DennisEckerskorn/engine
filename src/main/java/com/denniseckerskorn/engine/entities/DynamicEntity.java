@@ -5,14 +5,14 @@ import com.denniseckerskorn.engine.math.Vector2;
 
 import java.awt.image.BufferedImage;
 
-public class DynamicEntity extends Entity {
+public abstract class DynamicEntity extends Entity {
     private Vector2 velocity;
     private float linearVelocity;
     private float acceleration;
 
 
     public DynamicEntity(float x, float y, float width, float height, float hp, float damage,
-                          float colliderXRight, float colliderXLeft, float colliderYUp, float colliderYDown, int colliderMask, BufferedImage sprite, float velocityX, float velocityY, float linearVelocity, float acceleration) {
+                         float colliderXRight, float colliderXLeft, float colliderYUp, float colliderYDown, int colliderMask, BufferedImage sprite, float velocityX, float velocityY, float linearVelocity, float acceleration) {
         super(x, y, width, height, hp, damage, colliderXRight, colliderXLeft, colliderYUp, colliderYDown, colliderMask, sprite);
         this.velocity = new Vector2(velocityX, velocityY);
         this.linearVelocity = linearVelocity;
@@ -44,16 +44,14 @@ public class DynamicEntity extends Entity {
     @Override
     public void update(double deltaTime) {
         linearVelocity += (float) (acceleration * deltaTime);
-        //TODO: Aplicar
-    }
-
-    @Override
-    public void lastUpdate(double deltaTime) {
+        velocity.normalize().mul(linearVelocity);
+        getPosition().mulAdd(velocity, (float) deltaTime);
 
     }
 
     @Override
-    public void postUpdate(double deltaTime) {
+    public abstract void lastUpdate(double deltaTime);
 
-    }
+    @Override
+    public abstract void postUpdate(double deltaTime);
 }
