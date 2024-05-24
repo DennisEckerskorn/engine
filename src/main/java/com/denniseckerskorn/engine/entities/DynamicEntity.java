@@ -12,8 +12,8 @@ public abstract class DynamicEntity extends Entity {
 
 
     public DynamicEntity(float x, float y, float width, float height, float hp, float damage,
-                         float colliderXRight, float colliderXLeft, float colliderYUp, float colliderYDown, int colliderMask, BufferedImage sprite, float velocityX, float velocityY, float linearVelocity, float acceleration) {
-        super(x, y, width, height, hp, damage, colliderXRight, colliderXLeft, colliderYUp, colliderYDown, colliderMask, sprite);
+                         float colliderXLeft, float colliderXRight, float colliderYDown, float colliderYUp, int colliderMask, BufferedImage sprite, float velocityX, float velocityY, float linearVelocity, float acceleration) {
+        super(x, y, width, height, hp, damage, colliderXLeft, colliderXRight, colliderYDown, colliderYUp, colliderMask, sprite);
         this.velocity = new Vector2(velocityX, velocityY);
         this.linearVelocity = linearVelocity;
         this.acceleration = acceleration;

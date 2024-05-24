@@ -33,6 +33,29 @@ public class KeyboardManager implements KeyListener {
         jump = false;
     }
 
+    public boolean isUp() {
+        return up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public boolean isLeft() {
+        return left;
+    }
+
+    public boolean isRight() {
+        return right;
+    }
+
+    public boolean isFire() {
+        return fire;
+    }
+
+    public boolean isJump() {
+        return jump;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {

@@ -20,9 +20,9 @@ public abstract class Entity implements Updateable, Poolable {
     private BufferedImage sprite;
 
     public Entity(float x, float y, float width, float height, float hp, float damage,
-                  float colliderXRight, float colliderXLeft, float colliderYUp, float colliderYDown, int colliderMask, BufferedImage sprite) {
+                  float colliderXLeft, float colliderXRight, float colliderYDown, float colliderYUp, int colliderMask, BufferedImage sprite) {
         this(x, y, width, height, hp, damage, sprite);
-        this.collider = new Collider(colliderXRight, colliderXLeft, colliderYUp, colliderYDown, colliderMask);
+        this.collider = new Collider(colliderXLeft, colliderXRight, colliderYDown, colliderYUp, colliderMask);
     }
 
 
@@ -100,14 +100,14 @@ public abstract class Entity implements Updateable, Poolable {
         return sprite;
     }
 
-    public void setCollider(float colliderXRight, float colliderXLeft, float colliderYUp, float colliderYDown, int colliderMask) {
+    public void setCollider(float colliderXLeft, float colliderXRight, float colliderYDown, float colliderYUp, int colliderMask) {
         if (collider == null) {
-            collider = new Collider(colliderXRight, colliderXLeft, colliderYUp, colliderYDown, colliderMask);
+            collider = new Collider(colliderXLeft, colliderXRight, colliderYDown, colliderYUp, colliderMask);
         } else {
-            collider.setxRight(colliderXRight);
-            collider.setxLeft(colliderXLeft);
-            collider.setyUp(colliderYUp);
-            collider.setyDown(colliderYDown);
+            collider.setxRight(colliderXLeft);
+            collider.setxLeft(colliderXRight);
+            collider.setyUp(colliderYDown);
+            collider.setyDown(colliderYUp);
             collider.setMask(colliderMask);
         }
     }
