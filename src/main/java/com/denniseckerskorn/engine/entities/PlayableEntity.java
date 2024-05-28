@@ -3,6 +3,7 @@ package com.denniseckerskorn.engine.entities;
 import com.denniseckerskorn.engine.core.Collider;
 import com.denniseckerskorn.engine.input.KeyboardManager;
 import com.denniseckerskorn.engine.math.Vector2;
+import com.denniseckerskorn.game.utils.Direction;
 
 import java.awt.image.BufferedImage;
 
@@ -45,7 +46,7 @@ public abstract class PlayableEntity extends DynamicEntity {
     }
 
     public void setDirection(Direction direction) {
-
+        setVelocity(direction.getDirection().getX(), direction.getDirection().getY());
     }
 
     public abstract void processInput();

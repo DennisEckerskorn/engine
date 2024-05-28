@@ -10,11 +10,11 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         //Snake
-        SnakeGame snakeGame = new SnakeGame(Settings.WIDTH, Settings.HEIGHT, Settings.ROWS, Settings.COLS, Settings.TARGET_FPS, Settings.TARGET_UPDATE, Settings.MAX_ENTITIES);
+        SnakeGame snakeGame = new SnakeGame(Settings.WIDTH, Settings.HEIGHT, Settings.ROWS, Settings.COLS, Settings.TARGET_FPS, Settings.TARGET_UPS, Settings.MAX_ENTITIES);
         SnakeSwingRenderer snakeSwingRenderer = new SnakeSwingRenderer(Settings.WIDTH, Settings.HEIGHT, snakeGame);
         snakeGame.setRenderAPI(snakeSwingRenderer);
         JFrame frame = new JFrame();
-        frame.setResizable(true);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Snake");
         frame.add(snakeSwingRenderer);

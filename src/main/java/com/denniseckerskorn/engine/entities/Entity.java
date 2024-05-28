@@ -8,7 +8,7 @@ import com.denniseckerskorn.engine.pool.Poolable;
 
 import java.awt.image.BufferedImage;
 
-public abstract class Entity implements Updateable, Poolable {
+public abstract class Entity implements Updateable {
     private static int autoincrement = 0;
     private final int id;
     private final Vector2 position;
@@ -47,17 +47,6 @@ public abstract class Entity implements Updateable, Poolable {
 
     public Entity(float x, float y, float width, float height, float hp, float damage) {
         this(x, y, width, height, hp, damage, null);
-    }
-
-    @Override
-    public void reset() {
-        //this.position.setPosition(0, 0);
-        this.width = 0;
-        this.height = 0;
-        this.hp = 0;
-        this.damage = 0;
-        this.collider = null;
-        this.sprite = null;
     }
 
     public Collider getCollider() {

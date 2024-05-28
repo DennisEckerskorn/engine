@@ -2,6 +2,7 @@ package com.denniseckerskorn.game.entities;
 
 import com.denniseckerskorn.engine.entities.PlayableEntity;
 import com.denniseckerskorn.engine.input.KeyboardManager;
+import com.denniseckerskorn.game.utils.Direction;
 
 import java.awt.image.BufferedImage;
 
@@ -12,9 +13,13 @@ public class Snake extends PlayableEntity {
         super(x, y, width, height, hp, damage, colliderOffset, colliderMask, sprite, velocityX, velocityY, linearVelocity, acceleration, keyboardManager);
     }
 
+
     @Override
     public void processInput() {
-        if()
+        KeyboardManager km = getKeyboardManager();
+        if (km.isUp()) {
+            setDirection(Direction.UP);
+        }
     }
 
     @Override
