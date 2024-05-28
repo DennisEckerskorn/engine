@@ -16,6 +16,7 @@ public class Settings {
     public static final int SNAKE_HP = 1;
     public static final int SNAKE_DAMAGE = 1;
     public static final int SNAKE_COLLIDER_OFFSET = 5;
+    public static final int FOOD_COLLIDER_OFFSET = 5;
 
 
     // Color Settings

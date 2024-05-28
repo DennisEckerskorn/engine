@@ -8,5 +8,6 @@ public class SnakeAssetManager extends AssetManager {
     public void loadAll() {
         // loadSprite("player", "/sprites/manuel.png");
         // loadSound("shoot", "/sounds/sound.wav");
+        // loadSprite("food", "/sprites/manuel.png");
     }
 }

@@ -51,6 +51,10 @@ public abstract class EntityManager implements Updateable {
 
     public abstract AssetManager createAssetManager();
 
+    public List<PlayableEntity> getPlayableEntities() {
+        return playableEntities;
+    }
+
     public Entity[] getEntities() {
         return entities;
     }

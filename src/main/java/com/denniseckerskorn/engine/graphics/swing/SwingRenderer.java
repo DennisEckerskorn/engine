@@ -3,6 +3,7 @@ package com.denniseckerskorn.engine.graphics.swing;
 import com.denniseckerskorn.engine.core.Blackboard;
 import com.denniseckerskorn.engine.core.ResizeListener;
 import com.denniseckerskorn.engine.entities.Entity;
+import com.denniseckerskorn.engine.entities.PlayableEntity;
 import com.denniseckerskorn.engine.graphics.RenderAPI;
 
 import javax.swing.*;
@@ -18,6 +19,10 @@ public abstract class SwingRenderer extends JPanel implements RenderAPI {
         setDoubleBuffered(true);
         setFocusable(true);
 
+        for (PlayableEntity playableEntity : Blackboard.entityManager.getPlayableEntities()) {
+            addKeyListener(playableEntity.getKeyboardManager());
+        }
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -28,10 +33,8 @@ public abstract class SwingRenderer extends JPanel implements RenderAPI {
     }
 
 
-
     @Override
     public void render() {
-        //TODO: Repaint - paintComponenet2D
         repaint();
     }
 
@@ -48,5 +51,6 @@ public abstract class SwingRenderer extends JPanel implements RenderAPI {
     }
 
     public abstract void drawEntity(Graphics2D g2, Entity e);
+
     public abstract void drawBackground(Graphics2D g2);
 }
