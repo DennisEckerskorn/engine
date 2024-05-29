@@ -53,6 +53,18 @@ public class Vector2 {
         return this;
     }
 
+    public void setPosition(Vector2 vector2) {
+        this.x = vector2.x;
+        this.y = vector2.y;
+    }
+
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+
+
     @Override
     public String toString() {
         return "Vector2{" +

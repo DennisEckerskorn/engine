@@ -13,4 +13,5 @@ public enum Direction {
     public Vector2 getDirection() {
         return direction;
     }
+
 }

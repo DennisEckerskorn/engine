@@ -10,9 +10,8 @@ import com.denniseckerskorn.game.entities.Snake;
 import com.denniseckerskorn.game.entities.SnakeFragment;
 import com.denniseckerskorn.game.utils.Direction;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.nio.channels.SeekableByteChannel;
+import java.util.*;
 
 public class SnakeGame extends Game {
     private final int rows;
@@ -20,7 +19,8 @@ public class SnakeGame extends Game {
     private final SnakeEntityManager entityManager;
     private final Random random;
     private final Snake snake;
-    private final List<Vector2> emptyCells;
+
+    private int emptyCellsCount;
 
     public SnakeGame(int width, int height, int rows, int cols, float fpsLimit, float updateLimit, int maxEntities) {
         super(width, height, fpsLimit, updateLimit, maxEntities);
@@ -28,20 +28,31 @@ public class SnakeGame extends Game {
         this.cols = cols;
         this.random = new Random();
         entityManager = (SnakeEntityManager) Blackboard.entityManager;
-        snake = entityManager.createSnake(width / 2, height / 2, Direction.RIGHT,
+        snake = entityManager.createSnake(cols / 2, rows / 2, Direction.RIGHT,
                 new KeyboardManager('w', 's', 'a', 'd', 'm', 'j'));
-        emptyCells = new ArrayList<>(Settings.ROWS * Settings.COLS - 1);
-
-        int capacity = Settings.ROWS * Settings.COLS - 1;
-
-        for (int i = 0; i < capacity; i++) {
-            emptyCells.add(new Vector2(-1, -1));
-        }
+        spawnFood();
     }
 
     private void spawnFood() {
-        List<SnakeFragment> fragments = snake.getFragments();
+        int row = random.nextInt(Settings.ROWS);
+        int col = random.nextInt(Settings.COLS);
 
+        if (isEmptyCell(col, row)) {
+            entityManager.spawnFood(col, row);
+        }
+    }
+
+    private boolean isEmptyCell(int col, int row) {
+        List<SnakeFragment> fragments = snake.getFragments();
+        if (snake.getX() == col && snake.getY() == row) {
+            return false;
+        }
+        for (SnakeFragment fragment : snake.getFragments()) {
+            if (fragment.getX() == col && fragment.getY() == row) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -52,6 +63,7 @@ public class SnakeGame extends Game {
     @Override
     public void update(double deltaTime) {
         super.update(deltaTime);
+        System.out.println(snake.getNextDirection());
 
     }
 

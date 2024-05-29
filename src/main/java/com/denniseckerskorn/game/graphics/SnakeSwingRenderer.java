@@ -18,7 +18,8 @@ public class SnakeSwingRenderer extends SwingRenderer {
     @Override
     public void drawEntity(Graphics2D g2, Entity e) {
         g2.setColor(Color.ORANGE);
-        g2.fillRect((int) e.getX(), (int) e.getY(), (int) e.getWidth(), (int) e.getHeight());
+        g2.fillRect((int) (e.getX() * Blackboard.cellSize), (int) (e.getY() * Blackboard.cellSize), Blackboard.cellSize, Blackboard.cellSize);
+        // g2.drawImage(e.getSprite(), (int)e.getX(), (int)e.getY, (int) e.getWidth(), (int) e.getHeight(), null);
     }
 
     @Override
@@ -29,7 +30,6 @@ public class SnakeSwingRenderer extends SwingRenderer {
             for (int col = 0; col < Settings.COLS; col++) {
                 g2.setColor(Settings.COLOR_BACKGROUND_LINES);
                 g2.drawRect(col * Blackboard.cellSize, row * Blackboard.cellSize, Blackboard.cellSize, Blackboard.cellSize);
-
             }
         }
     }

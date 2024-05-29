@@ -29,7 +29,7 @@ public class SnakeEntityManager extends EntityManager {
 
     public Snake createSnake(float x, float y, Direction direction, KeyboardManager keyboardManager) {
         Snake snake = new Snake(x, y, Blackboard.cellSize, Blackboard.cellSize, Settings.SNAKE_HP, Settings.SNAKE_DAMAGE, Settings.SNAKE_COLLIDER_OFFSET,
-                ColliderMask.LAYER_SNAKE, getAssetManager().getSprite("player"), direction.getDirection().getX(), direction.getDirection().getY(), Blackboard.cellSize, 0, keyboardManager);
+                ColliderMask.LAYER_SNAKE, getAssetManager().getSprite("player"), direction.RIGHT, 3, 0, keyboardManager);
         addEntity(snake);
         return snake;
     }
